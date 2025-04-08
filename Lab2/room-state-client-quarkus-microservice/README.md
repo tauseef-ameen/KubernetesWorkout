@@ -64,7 +64,7 @@ Run the following Quarkus command to build the image:
 Use Docker to run the service:
 
 ```bash
-docker run -p 8082:8082 your-docker-org/room-state-service:1.0.0-SNAPSHOT
+docker run -p 8082:8082 tause/room-state-client-quarkus:1.0.0-SNAPSHOT
 ```
 
 Once running, the endpoint is available at:  
