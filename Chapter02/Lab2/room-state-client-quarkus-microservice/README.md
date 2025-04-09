@@ -1,4 +1,4 @@
-# Room State Service (Quarkus Microservice)
+# Lab2-Room State Service (Quarkus Microservice)
 
 This is a **Java Quarkus-based microservice** that provides room state information. It exposes a REST API endpoint to retrieve a specific room's state (e.g., *Available*, *Reserved*, *Maintenance*, *Occupied*).
 
