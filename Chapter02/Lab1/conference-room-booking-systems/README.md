@@ -1,4 +1,4 @@
-# Lab-1 - Conference Room Booking System
+# Lab1 - Conference Room Booking System
 
 This project provides a simple API for checking conference room availability and making reservations. It's built with **Spring Boot** and follows a RESTful design.
 
