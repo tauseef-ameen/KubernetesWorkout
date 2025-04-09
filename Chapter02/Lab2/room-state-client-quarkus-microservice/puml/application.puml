@@ -1,0 +1,25 @@
+@startuml
+
+actor User
+participant "GET /state/{roomId}" as GET
+participant "RoomStateClient" as Client
+participant "In-Memory Room State List" as Data
+
+skinparam responseMessageBelowArrow true
+autonumber
+
+User -> GET : Request state of particular roomId
+activate GET
+
+GET --> Client : Get all room states
+activate Client
+
+Client --> Data : Fetch in-memory room state list
+Client -> Client : Filter by roomId
+Client --> GET : Return matched room state (e.g., "Available")
+deactivate Client
+
+User <-- GET : Respond with room state "Available"
+deactivate GET
+
+@enduml
