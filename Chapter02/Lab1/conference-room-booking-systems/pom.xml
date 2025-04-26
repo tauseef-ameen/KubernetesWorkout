@@ -83,7 +83,7 @@
 								<image>
 									<name>manning/room-booking-system-jdk:%v</name>
 									<build>
-										<dockerFile>Dockerfile</dockerFile>
+										<dockerFile>Dockerfile2</dockerFile>
 										<assemblies>
 											<assembly>
 												<descriptorRef>artifact</descriptorRef>
