@@ -1,7 +1,3 @@
-Here is the **cleaned-up and corrected version** of your Kubernetes deployment command list with updated and accurate descriptions:
-
----
-
 ## Lab 5 - Deploy, scale and manages Java Spring Boot Application
 
 This document lists all commands used in **Lab 5** with brief, corrected explanations.
