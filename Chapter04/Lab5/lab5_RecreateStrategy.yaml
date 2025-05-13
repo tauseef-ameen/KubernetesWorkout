@@ -10,7 +10,8 @@ spec:
   selector:
     matchLabels:
       app: lab5deploy
-  strategy: {}
+  strategy:
+    type: Recreate
   template:
     metadata:
       labels:
