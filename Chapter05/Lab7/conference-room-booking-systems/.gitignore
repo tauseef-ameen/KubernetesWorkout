@@ -21,9 +21,6 @@ Thumbs.db
 
 # Ignore Maven/Gradle wrappers cache
 .mvn/wrapper/maven-wrapper.jar
-.gradle/
-!gradle/wrapper/gradle-wrapper.properties
-!gradle/wrapper/gradle-wrapper.jar
 
 # Ignore test reports and coverage
 /test-output/
