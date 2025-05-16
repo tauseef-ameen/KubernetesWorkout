@@ -103,7 +103,7 @@ mvn clean install -P createimage
 Launch the application using Docker:
 
 ```bash
-docker run -p 8081:8081 manning/room-booking-system-jdk:1.0.0-SNAPSHOT
+docker run -e BUILDING_ONE=alpha -p 8081:8081 manning/room-booking-system-jdk:1.0.0-SNAPSHOT
 ```
 
 The service will be accessible at `http://localhost:8081`.
