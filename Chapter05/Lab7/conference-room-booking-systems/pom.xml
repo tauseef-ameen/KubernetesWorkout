@@ -81,7 +81,7 @@
 						<configuration>
 							<images>
 								<image>
-									<name>manning/room-booking-system-jdk:%v</name>
+									<name>manning/room-booking-system-jre:%v</name>
 									<build>
 										<dockerFile>Dockerfile2</dockerFile>
 										<assemblies>
