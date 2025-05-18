@@ -6,10 +6,11 @@ import jakarta.ws.rs.Path;
 import jakarta.ws.rs.PathParam;
 import jakarta.ws.rs.Produces;
 import jakarta.ws.rs.core.MediaType;
+import jakarta.ws.rs.core.Response;
 import lombok.RequiredArgsConstructor;
 
 import java.util.List;
-import java.util.concurrent.atomic.AtomicReference;
+import java.util.Map;
 
 @Path("/state")
 @RequiredArgsConstructor
@@ -18,19 +19,25 @@ public class RoomStateResource {
 
     @Path("{roomId}")
     @GET
-    @Produces(MediaType.TEXT_PLAIN)
-    public String roomState(@PathParam("roomId") int roomId) {
-
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response roomState(@PathParam("roomId") int roomId) {
         Log.infof("Checking state of room for %s ", roomId);
-        List<RoomState> rooms = roomStateClient.allRoomStates();
-        AtomicReference<String> stateRef = new AtomicReference<>();
+        final List<RoomState> rooms = roomStateClient.allRoomStates();
 
-        rooms.stream()
+        final String state = rooms.stream()
                 .filter(room -> room.roomId() == roomId)
+                .map(RoomState::state)
                 .findFirst()
-                .ifPresent(room -> stateRef.set(room.state()));
+                .orElse(null);
 
-        Log.infof("Found state of roomId %s as %s ", roomId, stateRef.get());
-        return stateRef.toString();
+        if (state == null) {
+            Log.warnf("Room state not found for roomId %s", roomId);
+            return Response.status(Response.Status.NOT_FOUND)
+                    .entity(Map.of("error", "Room state not found for roomId: " + roomId))
+                    .build();
+        }
+
+        Log.infof("Found state of roomId %s as %s ", roomId, state);
+        return Response.ok(new RoomState(roomId, state)).build();
     }
 }
