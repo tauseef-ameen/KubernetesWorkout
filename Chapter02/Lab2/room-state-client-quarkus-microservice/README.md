@@ -56,7 +56,7 @@ This service uses the **Quarkus Docker extension**, which simplifies containeriz
 Run the following Quarkus command to build the image:
 
 ```bash
-./mvnw clean package -Dquarkus.container-image.build=true
+mvn clean package -Dquarkus.container-image.build=true
 ```
 
 ### Step 2: Run the Container
