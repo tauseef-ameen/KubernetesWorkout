@@ -77,7 +77,7 @@ Each property:
 * Has a default fallback value (`gebouw-1`, `gebouw-2`, etc.)
 
 ## Sequence Diagram
-![Sequence Diagram](sequence.png)
+![Sequence Diagram](src/image/sequence.png)
 
 > The diagram above illustrates the end-to-end interaction between the user, API endpoints, and services.
 
