@@ -4,14 +4,14 @@ This document lists all the commands used in **Lab 3** along with a brief explan
 
 ---
 
-#### Command 1 - Create a Namespace
+#### Listing 3.1 - Create a Namespace
 ```bash
 kubectl create namespace chapter3
 ```
 > Creates a new namespace called `chapter3` to isolate the resources for this lab.
 
 ---
-#### Command 2 - List all namespaces
+#### Listing 3.1 - List all namespaces
 ```bash
 kubectl get namespace
 ```
@@ -19,7 +19,7 @@ kubectl get namespace
 
 ---
 
-#### Command 3 - Tag and Push the Docker Image
+#### Listing 3.2 - Tag and Push the Docker Image
 ```bash
 docker tag k8sworkout/ch02:lab1 k8sworkout/ch03:lab3
 docker push k8sworkout/ch03:lab3
@@ -31,7 +31,7 @@ docker push k8sworkout/ch03:lab3
 
 ---
 
-#### Command 4 - Generate Deployment YAML
+#### Listing 3.3 - Generate Deployment YAML
 ```bash
 kubectl run lab3 --image=k8sworkout/ch03:lab3 -n chapter3 --dry-run=client -o yaml > lab3.yaml
 ```
@@ -39,7 +39,7 @@ kubectl run lab3 --image=k8sworkout/ch03:lab3 -n chapter3 --dry-run=client -o ya
 
 ---
 
-### Command 5 - Create the Pod from YAML
+### Listing 3.5 - Create the Pod from YAML
 ```bash
 kubectl create -f lab3.yaml
 ```
@@ -47,7 +47,7 @@ kubectl create -f lab3.yaml
 
 ---
 
-### Command 6 - Get List of Pods
+### Listing 3.5 - Get List of Pods
 ```bash
 kubectl get pods -n chapter3
 ```
@@ -55,7 +55,7 @@ kubectl get pods -n chapter3
 
 ---
 
-### Command 7 - Describe the Pod
+### Listing 3.6 - Describe the Pod
 ```bash
 kubectl describe pod lab3 -n chapter3
 ```
@@ -63,7 +63,7 @@ kubectl describe pod lab3 -n chapter3
 
 ---
 
-### Command 8 - Port Forward to Access Application
+### Listing 3.7 - Port Forward to Access Application
 ```bash
 kubectl port-forward --address localhost pod/lab3 5000:8081 -n chapter3
 ```
@@ -71,7 +71,7 @@ kubectl port-forward --address localhost pod/lab3 5000:8081 -n chapter3
 
 ---
 
-### Command 9 - View Pod Logs
+### Listing 3.9 - View Pod Logs
 ```bash
 kubectl -n chapter3 logs lab3
 ```
@@ -79,7 +79,7 @@ kubectl -n chapter3 logs lab3
 
 ---
 
-### Command 10 - View Logs of a Specific Container
+### Listing 3.9 - View Logs of a Specific Container
 ```bash
 kubectl logs -c lab3container lab3 -n chapter3
 ```
@@ -87,7 +87,7 @@ kubectl logs -c lab3container lab3 -n chapter3
 
 ---
 
-### Command 11 - Follow Logs in Real Time
+### Listing 3.9 - Follow Logs in Real Time
 ```bash
 kubectl -n chapter3 logs lab3 --follow
 ```
@@ -95,7 +95,7 @@ kubectl -n chapter3 logs lab3 --follow
 
 ---
 
-### Command 12 - View Logs Based on Labels
+### Listing 3.9 - View Logs Based on Labels
 ```bash
 kubectl -n chapter3 logs -l run=lab3
 ```
@@ -103,7 +103,7 @@ kubectl -n chapter3 logs -l run=lab3
 
 ---
 
-### Command 13 - Execute a Bash Shell in the Pod
+### Listing 3.10 - Execute a Bash Shell in the Pod
 ```bash
 kubectl -n chapter3 exec -it lab3 -- bash
 ```
@@ -111,7 +111,7 @@ kubectl -n chapter3 exec -it lab3 -- bash
 
 ---
 
-### Command 14 -  Copy a File into the Pod
+### Listing 3.11-  Copy a File into the Pod
 ```bash
 kubectl -n chapter3 cp index.html lab3:/opt/kubernetesWorkoutJRE/classes/BOOT-INF/classes/static/index.html
 ```
@@ -119,7 +119,7 @@ kubectl -n chapter3 cp index.html lab3:/opt/kubernetesWorkoutJRE/classes/BOOT-IN
 
 ---
 
-### Command 15 - Read a File from the Pod
+### Listing 3.11 - Read a File from the Pod
 ```bash
 kubectl -n chapter3 exec -it lab3 -- cat /opt/kubernetesWorkoutJRE/classes/BOOT-INF/classes/static/index.html
 ```
