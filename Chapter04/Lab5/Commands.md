@@ -4,7 +4,7 @@ This document lists all commands used in **Lab 5** with brief, corrected explana
 
 ---
 
-### Command 1 - Create a Namespace
+### Listing 4.2 - Create a Namespace
 
 ```bash
 kubectl create namespace chapter4
@@ -14,7 +14,7 @@ kubectl create namespace chapter4
 
 ---
 
-### Command 2 - List All Namespaces
+###  List All Namespaces
 
 ```bash
 kubectl get namespace
@@ -23,7 +23,7 @@ kubectl get namespace
 > Lists all namespaces in the cluster.
 ---
 
-### Command 3 - Tag and Push the Docker Image
+### Listing 4.3 - Tag and Push the Docker Image
 
 ```bash
 docker tag k8sworkout/ch02:lab1 k8sworkout/ch04:lab5
@@ -33,7 +33,7 @@ docker push k8sworkout/ch04:lab5
 > Tags the existing image as `ch04:lab5` and pushes it to the Docker registry.
 ---
 
-### Command 4 - Generate Deployment YAML
+### Listing 4.4 - Generate Deployment YAML
 
 ```bash
 kubectl create deployment lab5deploy --image=k8sworkout/ch04:lab5 --replicas=2 -n chapter4 --dry-run=client -o yaml > lab5.yaml
@@ -43,7 +43,7 @@ kubectl create deployment lab5deploy --image=k8sworkout/ch04:lab5 --replicas=2 -
 
 ---
 
-### Command 5 - Create the Deployment from YAML
+### Listing 4.8 - Create the Deployment from YAML
 
 ```bash
 kubectl create -f lab5.yaml
@@ -53,7 +53,7 @@ kubectl create -f lab5.yaml
 
 ---
 
-### Command 6 - List Deployments
+### Listing 4.8 - List Deployments
 
 ```bash
 kubectl get deploy -n chapter4
@@ -63,7 +63,7 @@ kubectl get deploy -n chapter4
 
 ---
 
-### Command 7 - List ReplicaSets
+### Listing 4.8 - List ReplicaSets
 
 ```bash
 kubectl get rs -n chapter4
@@ -71,9 +71,19 @@ kubectl get rs -n chapter4
 
 > Lists ReplicaSets in the `chapter4` namespace.
 
+
+### Listing 4.11 - View Deployment Strategy
+
+```bash
+kubectl describe deploy lab5deploy -n chapter4 | grep -E 'StrategyType|RollingUpdateStrategy'
+```
+
+> Shows the deployment strategy (e.g., RollingUpdate) used by `lab5deploy`.
+
+
 ---
 
-### Command 8 - Port Forward to Access App
+### Listing 4.12 - Port Forward to Access App
 
 ```bash
 kubectl port-forward --address localhost deployment/lab5deploy 5000:8081 -n chapter4
@@ -83,17 +93,7 @@ kubectl port-forward --address localhost deployment/lab5deploy 5000:8081 -n chap
 
 ---
 
-### Command 9 - View Deployment Strategy
-
-```bash
-kubectl describe deploy lab5deploy -n chapter4 | grep -E 'StrategyType|RollingUpdateStrategy'
-```
-
-> Shows the deployment strategy (e.g., RollingUpdate) used by `lab5deploy`.
-
----
-
-### Command 10 - Scale Deployment Replicas
+### Listing 4.13 - Scale Deployment Replicas
 
 ```bash
 kubectl scale deployment lab5deploy --replicas=4 -n chapter4
@@ -103,7 +103,7 @@ kubectl scale deployment lab5deploy --replicas=4 -n chapter4
 
 ---
 
-### Command 11 - Update Deployment Image
+### Listing 4.14 - Update Deployment Image
 
 ```bash
 kubectl set image deploy lab5deploy ch04=k8sworkout/ch04:test -n chapter4
@@ -113,7 +113,7 @@ kubectl set image deploy lab5deploy ch04=k8sworkout/ch04:test -n chapter4
 
 ---
 
-### Command 12 - View Deployment Summary
+### Listing 4.14 - View Deployment Summary
 
 ```bash
 kubectl describe deploy -n chapter4 | grep -E "Name:|Image:|Selector:"
@@ -123,7 +123,7 @@ kubectl describe deploy -n chapter4 | grep -E "Name:|Image:|Selector:"
 
 ---
 
-### Command 13 - Check Rollout Status
+### Listing 4.15 - Check Rollout Status
 
 ```bash
 kubectl rollout status deployment lab5deploy -n chapter4
@@ -133,7 +133,7 @@ kubectl rollout status deployment lab5deploy -n chapter4
 
 ---
 
-### Command 14 - Rollback Deployment
+### Listing 4.16 - Rollback Deployment
 
 ```bash
 kubectl rollout undo deployment lab5deploy -n chapter4
@@ -143,7 +143,7 @@ kubectl rollout undo deployment lab5deploy -n chapter4
 
 ---
 
-### Command 15 - Delete Specific Pods
+### Listing 4.17 - Delete Specific Pods
 
 ```bash
 kubectl delete pod lab5deploy-5cb795cd64-mgj7t lab5deploy-5cb795cd64-r7bjj -n chapter4 
@@ -153,7 +153,7 @@ kubectl delete pod lab5deploy-5cb795cd64-mgj7t lab5deploy-5cb795cd64-r7bjj -n ch
 
 ---
 
-### Command 16 - Get Pod Details in Table Format
+### Listing 4.17 - Get Pod Details in Table Format
 
 ```bash
 kubectl -n chapter4 get pods -o custom-columns="NAME:.metadata.name, STATUS:.status.phase, NODE:.spec.nodeName"
@@ -163,7 +163,7 @@ kubectl -n chapter4 get pods -o custom-columns="NAME:.metadata.name, STATUS:.sta
 
 ---
 
-### Command 17 - Mark Node as Unschedulable
+### Listing 4.18 - Mark Node as Unschedulable
 
 ```bash
 kubectl cordon minikube
@@ -173,7 +173,7 @@ kubectl cordon minikube
 
 ---
 
-### Command 18 - Drain Node
+### Listing 4.19 - Drain Node
 
 ```bash
 kubectl drain minikube --ignore-daemonsets --force
