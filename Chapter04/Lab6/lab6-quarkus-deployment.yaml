@@ -1,0 +1,27 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: quarkus-app
+  name: quarkus-app
+  namespace: chapter4
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: quarkus-app
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxUnavailable: 1
+      maxSurge: 1
+  template:
+    metadata:
+      labels:
+        app: quarkus-app
+    spec:
+      containers:
+        - image: k8sworkout/ch04:lab6
+          name: quarkus
+          resources: {}
+status: {}
