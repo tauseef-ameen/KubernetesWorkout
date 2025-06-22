@@ -69,12 +69,12 @@ Clone the repository:
 
 ```bash
 git clone https://github.com/tauseef-ameen/KubernetesWorkout.git
-cd kubernetes-workout/<chapter-name>
+cd KubernetesWorkout/<chapter-name>
 ````
 
 Suppose, you are working with Chapter03 then
 ```bash
-cd kubernetes-workout/Chapter03
+cd KubernetesWorkout/Chapter03
 ````
 
 Start with the folder for **Chapter 2**, which helps you containerize the app.
