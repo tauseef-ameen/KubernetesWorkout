@@ -19,7 +19,6 @@ kubectl create namespace chapter3
 ### Listing 3.1- List All Namespaces
 
 ```bash
-kubectl get namespaces
 kubectl get namespace
 ```
 
@@ -100,7 +99,7 @@ kubectl port-forward --address localhost pod/lab3 5000:8081 -n chapter3
 
 ```bash
 kubectl logs <pod-name> -n <namespace>
-kubectl -n chapter3 logs lab3
+kubectl logs lab3 -n chapter3
 ```
 
 > Shows logs from the specified pod.
@@ -122,7 +121,7 @@ kubectl logs -c lab3container lab3 -n chapter3
 
 ```bash
 kubectl logs <pod-name> -n <namespace> --follow
-kubectl -n chapter3 logs lab3 --follow
+kubectl logs lab3 -n chapter3  --follow
 ```
 
 > Streams logs continuously from the pod.
@@ -133,7 +132,7 @@ kubectl -n chapter3 logs lab3 --follow
 
 ```bash
 kubectl logs -l <label-selector> -n <namespace>
-kubectl -n chapter3 logs -l run=lab3
+kubectl logs -l run=lab3 -n chapter3 
 ```
 
 > Fetches logs from pods matching a label.
@@ -144,7 +143,7 @@ kubectl -n chapter3 logs -l run=lab3
 
 ```bash
 kubectl exec -it <pod-name> -n <namespace> -- bash
-kubectl -n chapter3 exec -it lab3 -- bash
+kubectl exec -it lab3 -n chapter3  -- bash
 ```
 
 > Opens an interactive shell inside the pod.
@@ -154,18 +153,18 @@ kubectl -n chapter3 exec -it lab3 -- bash
 ### Listing 3.11 - Copy a File into the Pod
 
 ```bash
-kubectl cp <local-path> <namespace>/<pod-name>:<destination-path>
+kubectl -n <namespace> cp <local-path> <pod-name>:<destination-path>
 kubectl -n chapter3 cp index.html lab3:/opt/kubernetesWorkoutJRE/classes/BOOT-INF/classes/static/index.html
 ```
 
-> Copies a file into the pod's file system.
+> Copies a file into the pod's file system. Here local-path is **index.html** and pod name is **lab3**
 
 ---
 
 ### Listing 3.11- Read a File from the Pod
 
 ```bash
-kubectl exec -it <pod-name> -n <namespace> -- cat <file-path>
+kubectl -n <namespace> exec -it <pod-name>  -- cat <file-path>
 kubectl -n chapter3 exec -it lab3 -- cat /opt/kubernetesWorkoutJRE/classes/BOOT-INF/classes/static/index.html
 ```
 
