@@ -1,4 +1,4 @@
-# Lab 4 - Running a Quarkus Application in Kubernetes Pod
+## Solution of Lab 4 - Running a Quarkus Application in Kubernetes Pod
 
 This document lists all the commands used in **Lab 4**, along with a brief explanation of what each command does.
 

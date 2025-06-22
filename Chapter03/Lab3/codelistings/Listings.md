@@ -1,136 +1,183 @@
-# Lab 3 - Running Java Spring Boot Application in Kubernetes Pod
+## Lab 3 - Running Java Spring Boot Application in a Kubernetes Pod
 
-This document lists all the commands used in **Lab 3** along with a brief explanation of what each command does.
+This document lists all the commands used in **Lab 3**.
+Each listing shows a general version first, followed by the lab-specific command.
 
 ---
 
-#### Listing 3.1 - Create a Namespace
+### Listing 3.1 - Create a Namespace
+
 ```bash
+kubectl create namespace <name-of-namespace>
 kubectl create namespace chapter3
 ```
-> Creates a new namespace called `chapter3` to isolate the resources for this lab.
+
+> Creates a namespace for isolating lab resources.
 
 ---
-#### Listing 3.1 - List all namespaces
+
+### Listing 3.1- List All Namespaces
+
 ```bash
+kubectl get namespaces
 kubectl get namespace
 ```
-> Lists all namespaces in cluster.
+
+> Lists all namespaces in the cluster.
 
 ---
 
-#### Listing 3.2 - Tag and Push the Docker Image
+### Listing 3.2 - Tag and Push the Docker Image
+
 ```bash
+docker tag <source-image> <target-image>
 docker tag k8sworkout/ch02:lab1 k8sworkout/ch03:lab3
+
+docker push <target-image>
 docker push k8sworkout/ch03:lab3
 ```
-> Tags the existing Docker image (`ch02:lab1`) as a new image (`ch03:lab3`) and pushes it to the Docker registry.
-> **Note:**  
-> In Chapter 2 Lab 1, two images were created — one based on **JDK** and another based on **JRE**.  
-> **Make sure you are tagging and pushing the JRE version of the image** for this lab.
+
+> Tags and pushes the correct Docker image (`JRE` version) to be used in the pod.
 
 ---
 
-#### Listing 3.3 - Generate Pod manifest (YAML)
+### Listing 3.3 - Generate Pod Manifest (YAML)
+
 ```bash
+kubectl run <pod-name> --image=<image> -n <namespace> --dry-run=client -o yaml > <filename>.yaml
 kubectl run lab3 --image=k8sworkout/ch03:lab3 -n chapter3 --dry-run=client -o yaml > lab3.yaml
 ```
-> Creates a YAML manifest (`lab3.yaml`) for the `lab3` pod based on the image, without actually creating it yet.
+
+> Generates a YAML manifest for a pod without applying it.
 
 ---
 
 ### Listing 3.5 - Create the Pod from YAML
+
 ```bash
+kubectl create -f <filename>.yaml
 kubectl create -f lab3.yaml
 ```
-> Deploys the pod by applying the `lab3.yaml` file.
+
+> Applies the manifest to create the pod.
 
 ---
 
-### Listing 3.5 - Get List of Pods
+### Listing 3.5- Get List of Pods
+
 ```bash
+kubectl get pods -n <namespace>
 kubectl get pods -n chapter3
 ```
-> Lists all pods in the current namespace (default unless otherwise set).
+
+> Lists pods in the specified namespace.
 
 ---
 
 ### Listing 3.6 - Describe the Pod
+
 ```bash
+kubectl describe pod <pod-name> -n <namespace>
 kubectl describe pod lab3 -n chapter3
 ```
-> Provides detailed information about the `lab3` pod, including events, container states, and resource usage.
+
+> Shows detailed information about the pod.
 
 ---
 
 ### Listing 3.7 - Port Forward to Access Application
+
 ```bash
+kubectl port-forward --address localhost pod/<pod-name> <local-port>:<container-port> -n <namespace>
 kubectl port-forward --address localhost pod/lab3 5000:8081 -n chapter3
 ```
-> Forwards port `8081` from the `lab3` pod to your local machine's `5000` port, making it accessible locally.
+
+> Maps a container port to your local machine for access.
 
 ---
 
 ### Listing 3.9 - View Pod Logs
+
 ```bash
+kubectl logs <pod-name> -n <namespace>
 kubectl -n chapter3 logs lab3
 ```
-> Fetches and displays logs from the `lab3` pod.
+
+> Shows logs from the specified pod.
 
 ---
 
-### Listing 3.9 - View Logs of a Specific Container
+### Listing 3.9- View Logs of a Specific Container
+
 ```bash
+kubectl logs -c <container-name> <pod-name> -n <namespace>
 kubectl logs -c lab3container lab3 -n chapter3
 ```
-> Displays logs specifically from the container named `lab3container` inside the `lab3` pod.
+
+> Displays logs from a specific container within the pod.
 
 ---
 
-### Listing 3.9 - Follow Logs in Real Time
+### Listing 3.9- Follow Logs in Real Time
+
 ```bash
+kubectl logs <pod-name> -n <namespace> --follow
 kubectl -n chapter3 logs lab3 --follow
 ```
-> Continuously streams (`--follow`) logs from the `lab3` pod.
+
+> Streams logs continuously from the pod.
 
 ---
 
-### Listing 3.9 - View Logs Based on Labels
+### Listing 3.9- View Logs Based on Labels
+
 ```bash
+kubectl logs -l <label-selector> -n <namespace>
 kubectl -n chapter3 logs -l run=lab3
 ```
-> Fetches logs from pods that match the label `run=lab3` in the `chapter3` namespace.
+
+> Fetches logs from pods matching a label.
 
 ---
 
 ### Listing 3.10 - Execute a Bash Shell in the Pod
+
 ```bash
+kubectl exec -it <pod-name> -n <namespace> -- bash
 kubectl -n chapter3 exec -it lab3 -- bash
 ```
-> Opens an interactive bash shell inside the running `lab3` pod.
+
+> Opens an interactive shell inside the pod.
 
 ---
 
-### Listing 3.11-  Copy a File into the Pod
+### Listing 3.11 - Copy a File into the Pod
+
 ```bash
+kubectl cp <local-path> <namespace>/<pod-name>:<destination-path>
 kubectl -n chapter3 cp index.html lab3:/opt/kubernetesWorkoutJRE/classes/BOOT-INF/classes/static/index.html
 ```
-> Copies your local index.html file into the pod's file system, replacing or updating the existing file inside the container..
+
+> Copies a file into the pod's file system.
 
 ---
 
-### Listing 3.11 - Read a File from the Pod
+### Listing 3.11- Read a File from the Pod
+
 ```bash
+kubectl exec -it <pod-name> -n <namespace> -- cat <file-path>
 kubectl -n chapter3 exec -it lab3 -- cat /opt/kubernetesWorkoutJRE/classes/BOOT-INF/classes/static/index.html
 ```
-> Executes a `cat` command inside the `lab3` pod to display the content of `index.html` file.
+
+> Reads and displays the content of a file inside the pod.
 
 ---
 
-## Notes:
-- Make sure Docker image is pushed correctly before deploying.
-- Ensure the correct namespace is being used when accessing pods and logs (`-n chapter3`).
-- Port forwarding allows you to access internal pod services locally.
-- Using `--follow` helps monitor logs live as the application runs.
+### Notes
+
+* Tag and push the correct **JRE-based** image before running the pod.
+* Use the namespace `chapter3` for all pod-related commands.
+* Use `--follow` to monitor logs in real time.
+* Port-forwarding helps access the service locally without exposing it.
 
 ---
