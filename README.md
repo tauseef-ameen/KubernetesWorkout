@@ -8,12 +8,12 @@ This book is designed for developers who want to **learn Kubernetes by doing** �
 
 ### Who This Book Is For
 
-This book is for you if you’re a front-end, back-end, or full-stack developer. It teaches Kubernetes from scratch—no prior experience required.     
-While the examples use Java, Spring Boot, and Quarkus, the concepts are explained in a way that any developer can follow, regardless of language or framework. You’ll learn how to deploy and manage real applications in Kubernetes, step by step.
+This book is for you if you’re a **front-end**, **back-end**, or **full-stack developer**. It teaches Kubernetes from scratch. No prior experience required.     
+While the examples use **Java, Spring Boot, and Quarkus**, the concepts are explained in a way that any developer can follow, regardless of language or framework. You’ll learn how to deploy and manage real applications in Kubernetes, step by step.
 
 This book is a good fit if you’re:
 
-- A **Application** developer curious about running your apps in Kubernetes
+- An **Application** developer curious about running your apps in Kubernetes
 - A **DevOps beginner** looking to bridge the gap between development and operations
 - A **Test Automation engineer** who wants to troubleshoot test environments in Kubernetes
 - A **Product Owner** or **Engineering Manager** trying to understand Kubernetes' role in the delivery pipeline
