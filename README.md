@@ -107,5 +107,3 @@ Feel free to open an issue or pull request. You can also share your feedback to 
 ---
 
 Happy learning — and enjoy your Kubernetes workout!
-
-```
