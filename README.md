@@ -2,7 +2,7 @@
 
 Welcome to the official GitHub repository for the book **Kubernetes Workout**.
 
-This book is designed for developers who want to **learn Kubernetes by doing** — not by reading abstract theory or working with outdated sample apps. Whether you're building microservices in **Java**, **Quarkus**, or any other modern framework, this book shows you how to deploy, manage, and troubleshoot real applications in Kubernetes.
+This book is designed for developers who want to **learn Kubernetes by doing**, not by reading abstract theory or working with outdated sample apps. Whether you're building microservices in **Java**, **Quarkus**, or any other modern framework, this book shows you how to deploy, manage, and troubleshoot real applications in Kubernetes.
 
 ---
 
@@ -92,13 +92,6 @@ You’ll read about a concept, see it explained visually, then run it using the 
 
 ---
 
-### Book Purchase
-
-Find the book on [Manning Publications](https://www.manning.com) or other major online retailers.
-Includes diagrams, background explanations, and exercises tied to this repo.
-
----
-
 ### Contributing or Feedback
 
 Spotted a bug in the code or something that didn’t work for your setup?
@@ -106,4 +99,4 @@ Feel free to open an issue or pull request. You can also share your feedback to 
 
 ---
 
-Happy learning — and enjoy your Kubernetes workout!
+Happy learning and enjoy your Kubernetes workout!
