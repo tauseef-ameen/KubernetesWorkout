@@ -1,0 +1,34 @@
+# Ignore build output
+/target/
+/build/
+
+# Ignore IDE settings
+.idea/
+*.iml
+
+# Ignore OS-specific files
+.DS_Store
+Thumbs.db
+
+# Ignore logs and temp files
+*.log
+*.tmp
+
+# Ignore environment and config overrides
+.env
+*.properties.local
+*.yml.local
+
+# Ignore Maven/Gradle wrappers cache
+.mvn/wrapper/maven-wrapper.jar
+
+# Ignore test reports and coverage
+/test-output/
+/coverage/
+/jacoco.exec
+
+# Ignore IntelliJ run configs
+.idea/runConfigurations/
+
+# Ignore application-specific temp files
+*.swp
