@@ -1,4 +1,4 @@
-# Lab7 - Conference Room Booking System
+# Lab9 - Conference Room Booking System
 
 This project provides a simple API for checking conference room availability and making reservations. It's built with **Spring Boot** and follows a RESTful design.
 
@@ -59,14 +59,11 @@ The system allows users to:
 
 ### Configurable Parameters
 
-The application uses the following properties from `application.properties`:
+The application uses several properties from `application.properties` but this lab introduces Kubernetes secrets.   
+So, we developed a new property for token like this
 
 ```properties
-manning.workout.building1=${BUILDING_ONE:gebouw-1}
-manning.workout.building2=${BUILDING_TWO:gebouw-2}
-manning.workout.building3=${BUILDING_THREE:gebouw-3}
-manning.workout.building4=${BUILDING_FOUR:gebouw-4}
-manning.workout.building5=${BUILDING_FIVE:gebouw-5}
+manning.workout.token=${CURRENCY_TOKEN:a0fe6fc09dd4df2421e97dea}
 ```
 ### Description
 These parameters define the names of 5 buildings used in the application.
