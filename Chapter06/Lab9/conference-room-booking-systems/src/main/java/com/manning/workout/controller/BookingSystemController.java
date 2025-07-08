@@ -1,17 +1,13 @@
 package com.manning.workout.controller;
 
-import com.manning.workout.exception.ServiceUnavailableException;
 import com.manning.workout.inventory.ConferenceRoom;
 import com.manning.workout.inventory.ConferenceRoomInventory;
 import com.manning.workout.reservation.RoomReservation;
 import com.manning.workout.reservation.RoomReservationRepositoryClient;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.client.RestClientException;
-import org.springframework.web.client.RestTemplate;
 
 import java.time.LocalDateTime;
 import java.util.Collection;
@@ -27,7 +23,6 @@ public class BookingSystemController {
 
     private final RoomReservationRepositoryClient reservationsRepository;
     private final ConferenceRoomInventory conferenceRoomInventory;
-    private final RestTemplate restTemplate = new RestTemplate();
 
     @GetMapping("/available/{startDate}/{endDate}")
     public Collection<ConferenceRoom> availability(@PathVariable("startDate") LocalDateTime startDate,
