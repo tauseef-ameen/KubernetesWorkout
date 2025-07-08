@@ -63,7 +63,7 @@ The application uses several properties from `application.properties` but this l
 So, we developed a new property for token like this
 
 ```properties
-manning.workout.token=${CURRENCY_TOKEN:a0fe6fc09dd4df2421e97dea}
+manning.workout.token=${CURRENCY_TOKEN:}
 ```
 ### Description
 These parameters define the names of 5 buildings used in the application.
