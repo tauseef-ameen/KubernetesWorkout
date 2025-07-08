@@ -1,6 +1,8 @@
 package com.manning.workout.currency;
 
-public record CurrencyConversion(String fromCurrency,
-                                 String toCurrency,
-                                 String conversionResult) {
+public record CurrencyConversion(
+        String fromCurrency,
+        String toCurrency,
+        String conversionResult,
+        String token) {
 }

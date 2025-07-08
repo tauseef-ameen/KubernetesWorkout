@@ -22,15 +22,17 @@ public class CurrencyConversionController {
     private final ConfigMapConfiguration configuration;
 
     @GetMapping("/convert/{fromCurrency}/{toCurrency}")
-    public ResponseEntity<CurrencyConversion> currencyConverter(@PathVariable("fromCurrency") String fromCurrency,
-                                                                @PathVariable("toCurrency") String toCurrency) {
+    public ResponseEntity<CurrencyConversion> currencyConverter(
+            @PathVariable("fromCurrency") String fromCurrency,
+            @PathVariable("toCurrency") String toCurrency) {
+
         final String token = configuration.getToken();
+        log.info("converting {} to {}", fromCurrency, toCurrency);
         String url = String.format("https://v6.exchangerate-api.com/v6/%s/latest/%s",token, fromCurrency.toUpperCase());
         log.info("url of currency exchange API is {}", url);
 
         try {
             final ResponseEntity<ExchangeRateResponse> response = restTemplate.getForEntity(url, ExchangeRateResponse.class);
-            log.info("Response is {}", response.getBody());
             if (response.getStatusCode() != HttpStatus.OK || response.getBody() == null) {
                 return ResponseEntity.status(HttpStatus.BAD_GATEWAY).build();
             }
@@ -43,7 +45,11 @@ public class CurrencyConversionController {
                 return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
             }
             final String conversionResult = "Value of 1 "+fromCurrency.toUpperCase()+ "="+rate+" "+toCurrency.toUpperCase();
-            final CurrencyConversion conversion = new CurrencyConversion(fromCurrency.toUpperCase(), toCurrency.toUpperCase(), conversionResult);
+            final CurrencyConversion conversion = new CurrencyConversion(
+                    fromCurrency.toUpperCase(),
+                    toCurrency.toUpperCase(),
+                    conversionResult,
+                    token);
             return ResponseEntity.ok(conversion);
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
