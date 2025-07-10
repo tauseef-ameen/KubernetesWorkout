@@ -16,7 +16,7 @@ This book is a good fit if you’re:
 - An **Application** developer curious about running your apps in Kubernetes
 - A **DevOps beginner** looking to bridge the gap between development and operations
 - A **Test Automation engineer** who wants to troubleshoot test environments in Kubernetes
-- A **Product Owner** or **Engineering Manager** trying to understand Kubernetes' role in the delivery pipeline
+- A **Product Owner** or **Engineering Manager** trying to understand Kubernetes role in the delivery pipeline
 
 ---
 
