@@ -1,4 +1,4 @@
-## Kubernetes Workout — Hands-on Kubernetes for Application Developers
+## Kubernetes Workout: Hands-on Kubernetes for Application Developers
 
 Welcome to the official GitHub repository for the book **Kubernetes Workout**.
 
@@ -84,7 +84,7 @@ Then follow along chapter by chapter.
 
 ### Labs You Can Actually Run
 
-All labs are built around **real microservices** — not dummy NGINX or BusyBox pods.
+All labs are built around **real microservices** and not dummy NGINX or BusyBox pods.
 You’ll run, scale, update, and debug applications just like you would in a real job.
 
 Each chapter mixes **learning + doing**:
