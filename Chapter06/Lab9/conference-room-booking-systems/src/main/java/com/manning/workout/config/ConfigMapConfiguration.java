@@ -16,5 +16,6 @@ public class ConfigMapConfiguration {
     private String building4;
     private String building5;
     private String token;
+    private String url;
 
 }

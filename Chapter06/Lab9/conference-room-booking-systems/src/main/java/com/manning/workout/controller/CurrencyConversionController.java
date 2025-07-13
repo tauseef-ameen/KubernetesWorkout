@@ -28,7 +28,7 @@ public class CurrencyConversionController {
 
         final String token = configuration.getToken();
         log.info("converting {} to {}", fromCurrency, toCurrency);
-        String url = String.format("https://v6.exchangerate-api.com/v6/%s/latest/%s",token, fromCurrency.toUpperCase());
+        String url = String.format(configuration.getUrl(),token, fromCurrency.toUpperCase());
         log.info("url of currency exchange API is {}", url);
 
         try {
