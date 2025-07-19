@@ -14,6 +14,8 @@ import org.springframework.web.client.RestTemplate;
 
 import java.util.Map;
 
+import static org.springframework.http.HttpStatus.*;
+
 @RestController
 @Slf4j
 @RequiredArgsConstructor
@@ -33,8 +35,8 @@ public class CurrencyConversionController {
 
         try {
             final ResponseEntity<ExchangeRateResponse> response = restTemplate.getForEntity(url, ExchangeRateResponse.class);
-            if (response.getStatusCode() != HttpStatus.OK || response.getBody() == null) {
-                return ResponseEntity.status(HttpStatus.BAD_GATEWAY).build();
+            if (response.getStatusCode() != OK || response.getBody() == null) {
+                return ResponseEntity.status(BAD_GATEWAY).build();
             }
             final ExchangeRateResponse body = response.getBody();
             final Map<String, Double> rates = body.conversion_rates();
@@ -42,7 +44,7 @@ public class CurrencyConversionController {
             final Double rate = rates.get(toCurrency.toUpperCase());
 
             if (rate == null) {
-                return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+                return ResponseEntity.status(NOT_FOUND).build();
             }
             final String conversionResult = "Value of 1 "+fromCurrency.toUpperCase()+ "="+rate+" "+toCurrency.toUpperCase();
             final CurrencyConversion conversion = new CurrencyConversion(
@@ -52,7 +54,7 @@ public class CurrencyConversionController {
                     token);
             return ResponseEntity.ok(conversion);
         } catch (Exception e) {
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+            return ResponseEntity.status(INTERNAL_SERVER_ERROR).build();
         }
     }
 }
