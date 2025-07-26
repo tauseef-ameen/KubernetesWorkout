@@ -1,114 +1,72 @@
-# Lab9 - Conference Room Booking System
+# Lab 9: Currency Converter API with Kubernetes Secrets
 
-This project provides a simple API for checking conference room availability and making reservations. It's built with **Spring Boot** and follows a RESTful design.
+This example demonstrates how to integrate **Kubernetes Secrets** into an application for securely injecting sensitive data like API tokens. It is part of Chapter 6 of the *Kubernetes Workout* book.
 
 ---
 
 ## Overview
 
-The system allows users to:
-
-1. **Check available rooms** for a given time period.
-2. **Reserve a room** within the available time.
+In this project, we extend a **Spring Boot microservice (Conference Room Booking System)** to include a new endpoint for currency conversion using a third-party API that requires a token.  
+The token is **not hardcoded**; it is injected via a **Kubernetes Secret** at runtime.
 
 ---
 
-## Components
+## Features
 
-- **User**: The client making API requests.
-- **GET `/available/{startTime}/{endTime}`**: Endpoint to fetch available rooms.
-- **POST `/reserve`**: Endpoint to make a reservation.
-- **Inventory**: Manages the list of all rooms.
-- **Reservation**: Stores existing reservations in a temporary in-memory list.
-
----
-
-## Sequence Flow
-
-### 1. Check Room Availability
-
-**Endpoint**: `GET /available/{startTime}/{endTime}`  
-**Process**:
-
-- The user requests available rooms for a given time range.
-- The system fetches all rooms from the **Inventory**.
-- Then it fetches all existing reservations from **Reservation**.
-- For each reservation, the system filters out already reserved rooms from the list.
-- The remaining rooms are returned to the user as available.
-
-### 2. Reserve a Room
-
-**Endpoint**: `POST /reserve`  
-**Payload**:
-
-```json
-{
-  "roomId": "22",
-  "startTime": "2025-03-24T10:00",
-  "endTime": "2025-03-24T12:00"
-}
-```
-
-**Process**:
-
-- The user sends a reservation request with room ID and time range.
-- The system stores the reservation in a temporary list in the **Reservation** component.
-- The reservation details are returned to the user.
+- Build a REST API endpoint: `/convert/{fromCurrency}/{toCurrency}`
+- Fetch live exchange rates from [ExchangeRate API](https://www.exchangerate-api.com/)
+- Securely inject API tokens using **Kubernetes Secrets**
+- Configure API URL using **Kubernetes ConfigMap**
+- Run the application in **Kubernetes** (Minikube or any cluster)
 
 ---
+## Key Configurations
 
-### Configurable Parameters
+Your Spring Boot application reads both values from environment variables at runtime:
 
-The application uses several properties from `application.properties` but this lab introduces Kubernetes secrets.   
-So, we developed a new property for token like this
-
+**`application.properties`**
 ```properties
-manning.workout.token=${CURRENCY_TOKEN:}
+manning.workout.token=${CURRENCY_TOKEN:}   # Secret
+manning.workout.url=${API_URL:https://v6.exchangerate-api.com/v6/%s/latest/%s}   # ConfigMap
 ```
-### Description
-These parameters define the names of 5 buildings used in the application.
-
-Each property:
-
-* Can be set via environment variables (`BUILDING_ONE`, `BUILDING_TWO`, etc.)
-* Has a default fallback value (`gebouw-1`, `gebouw-2`, etc.)
-
-## Sequence Diagram
-![Sequence Diagram](src/image/sequence.png)
-
-> The diagram above illustrates the end-to-end interaction between the user, API endpoints, and services.
-
-### Notes
-
-- This implementation uses a **temporary in-memory list** to manage rooms and reservations (not persisted).
-- Ideal for demonstrating a reservation system flow or building a prototype.
-- Can be extended to include database persistence, conflict resolution, authentication, etc.
-
----
-## How to Run the Application
-
-### Step 1: Build & Containerize
-
-Use Maven to package and build the Docker image:
-
-```bash
-mvn clean install -P createimage
-```
-
-### Step 2: Run the Container
-
-Launch the application using Docker:
-
-```bash
-docker run -e BUILDING_ONE=alpha -p 8081:8081 manning/room-booking-system-jre:1.0.0-SNAPSHOT
-```
-
-The service will be accessible at `http://localhost:8081`.
-
+* **CURRENCY_TOKEN** → Injected from Kubernetes Secret
+* **API_URL** → Injected from Kubernetes ConfigMap
 ---
 
-### Tech Stack
-- Java 17
-- Spring Boot 3.4.3
-- Docker
+## Tech Stack
+
+- **Java 17**
+- **Spring Boot**
+- **Docker**
+- **Kubernetes**
 ---
+
+
+### Steps to Run Locally Using Docker (Without Kubernetes)
+
+1. Clone this repository:
+   ```bash
+   git clone https://github.com/tauseef-ameen/KubernetesWorkout.git
+    ````
+   and navigate to Lab 9
+   ```bash
+   cd KubernetesWorkout/Chapter06/Lab9/conference-room-booking-systems
+    ````
+
+2. Build and create spring boot application image:
+
+   ```bash
+   mvn clean install -P createimage
+   ```
+   This creates the image manning/room-booking-system-jre:1.0.0-SNAPSHOT locally.
+
+3. Run the image with Docker, passing the API token as an environment variable.   
+*Note:* Without Kubernetes, set the environment variable manually.
+    ```bash
+   docker run -p 8080:8080 -e CURRENCY_TOKEN=<your-token> manning/room-booking-system-jre:1.0.0-SNAPSHOT
+   ```
+4. Test the API:
+   ```bash
+   http://localhost:8080/convert/EUR/USD
+   ```
+
