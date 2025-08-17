@@ -21,7 +21,7 @@ public class RoomStateResource {
     @GET
     @Produces(MediaType.APPLICATION_JSON)
     public Response roomState(@PathParam("roomId") int roomId) {
-        Log.infof("Checking state of room for %s ", roomId);
+        Log.infof("Checking state of roomId %s :", roomId);
         final List<RoomState> rooms = roomStateClient.allRoomStates();
 
         final String state = rooms.stream()
