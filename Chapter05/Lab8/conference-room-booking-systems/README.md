@@ -1,4 +1,4 @@
-# Lab7 - Conference Room Booking System
+# Lab8 - Conference Room Booking System
 
 This project provides a simple API for checking conference room availability and making reservations. It's built with **Spring Boot** and follows a RESTful design.
 
@@ -61,12 +61,20 @@ The system allows users to:
 
 The application uses the following properties from `application.properties`:
 
-```properties
+```Building properties
 manning.workout.building1=${BUILDING_ONE:gebouw-1}
 manning.workout.building2=${BUILDING_TWO:gebouw-2}
 manning.workout.building3=${BUILDING_THREE:gebouw-3}
 manning.workout.building4=${BUILDING_FOUR:gebouw-4}
 manning.workout.building5=${BUILDING_FIVE:gebouw-5}
+
+```
+```RoomId properties
+manning.workout.room1=${ROOM_ONE:1}
+manning.workout.room2=${ROOM_TWO:11}
+manning.workout.room3=${ROOM_THREE:22}
+manning.workout.room4=${ROOM_FOUR:33}
+manning.workout.room5=${ROOM_FIVE:44}
 ```
 ### Description
 These parameters define the names of 5 buildings used in the application.
