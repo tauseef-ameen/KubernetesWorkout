@@ -1,4 +1,4 @@
-# Lab2-Room State Service (Quarkus Microservice)
+# Lab8-Room State Service: Configurable RoomId (Quarkus Microservice)
 
 This is a **Java Quarkus-based microservice** that provides room state information. It exposes a REST API endpoint to retrieve a specific room's state (e.g., *Available*, *Reserved*, *Maintenance*, *Occupied*).
 
@@ -19,6 +19,25 @@ The service allows users to:
 - **RoomStateClient**: A component that manages access to the in-memory room state list.
 - **In-Memory Room State List**: The internal data store holding current room states.
 
+---
+
+## Key Configurations
+
+RoomId is configurable in this quarkus microservice. It can read values from external environment variables at runtime:
+
+**`application.properties`**
+```properties
+manning.workout.room1=${ROOM_ONE:1}
+manning.workout.room2=${ROOM_TWO:11}
+manning.workout.room3=${ROOM_THREE:22}
+manning.workout.room4=${ROOM_FOUR:33}
+manning.workout.room5=${ROOM_FIVE:44}
+```
+* **ROOM_ONE** → Name of env variables of first room.
+* **ROOM_TWO** → Name of env variables of second room.
+* **ROOM_THREE** → Name of env variables of third room.
+* **ROOM_FOUR** → Name of env variables of fourth room.
+* **ROOM_FIVE** → Name of env variables of fifth room.
 ---
 
 ## Sequence Flow
